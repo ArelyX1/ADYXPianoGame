@@ -203,7 +203,7 @@ public class Game extends Thread {
 	public void dropNotes() {
 		Beat[] beats = null;
 		//Cool-Tobu
-		if (titleName.equals("Cool-Tobu") && difficulty.equals("Easy")) {
+		if (titleName.equals("Cool-Tobu") && difficulty.equals("Hard")) {
 			int startTime = 7500 - Main.REACH_TIME * 1000;
 			int gap = 120;
 			beats = new Beat[] { //come back later
@@ -711,7 +711,7 @@ public class Game extends Thread {
 			};
 		}
 		
-		else if (titleName.equals("Cool-Tobu")&& difficulty.equals("Hard")) {
+		else if (titleName.equals("Cool-Tobu")&& difficulty.equals("Easy")) {
 			int startTime = 1000;
 			beats = new Beat[] {
 				new Beat(startTime,"Space"),
@@ -747,6 +747,151 @@ public class Game extends Thread {
 			};
 		}
 		
+		else if(titleName.equals("The Few & The Many") && difficulty.equals("Easy")) 
+		{}
+		else if(titleName.equals("The Few & The Many") && difficulty.equals("Hard"))
+		{
+			int startTime = 4300  - Main.REACH_TIME * 1000; // Inicia en 7.5 segundos
+			int gap = 60; // Intervalo entre beats
+
+			beats = new Beat[] {
+				new Beat(startTime, "S"),
+				new Beat(startTime + gap * 3, "D"),
+				new Beat(startTime + gap * 5, "F"),
+				new Beat(startTime + gap * 8, "S"),
+				new Beat(startTime + gap * 12, "Space"),
+				new Beat(startTime + gap * 16, "J"),
+				new Beat(startTime + gap * 20, "K"),
+				new Beat(startTime + gap * 20, "L"),
+
+				// Cambio de patrón después de unos segundos
+				new Beat(startTime + gap * 25, "S"),
+				new Beat(startTime + gap * 28, "D"),
+				new Beat(startTime + gap * 32, "Space"),
+				new Beat(startTime + gap * 32, "K"),
+				new Beat(startTime + gap * 36, "F"),
+				new Beat(startTime + gap * 40, "J"),
+
+				// Sección rápida
+				new Beat(startTime + gap * 43, "S"),
+				new Beat(startTime + gap * 45, "D"),
+				new Beat(startTime + gap * 47, "F"),
+				new Beat(startTime + gap * 47, "Space"),
+				new Beat(startTime + gap * 50, "L"),
+				new Beat(startTime + gap * 52, "K"),
+				new Beat(startTime + gap * 54, "J"),
+
+				// Ritmo intermedio
+				new Beat(startTime + gap * 60, "Space"),
+				new Beat(startTime + gap * 63, "S"),
+				new Beat(startTime + gap * 66, "D"),
+				new Beat(startTime + gap * 70, "L"),
+				new Beat(startTime + gap * 74, "F"),
+				new Beat(startTime + gap * 78, "J"),
+				new Beat(startTime + gap * 78, "K"),
+
+				// Sección final variada
+				new Beat(startTime + gap * 85, "K"),
+				new Beat(startTime + gap * 90, "Space"),
+				new Beat(startTime + gap * 95, "D"),
+				new Beat(startTime + gap * 100, "F"),
+				new Beat(startTime + gap * 105, "S"),
+				new Beat(startTime + gap * 110, "J"),
+				new Beat(startTime + gap * 115, "L"),
+				new Beat(startTime + gap * 115, "K"),
+				new Beat(startTime + gap * 120, "Space"),
+
+				// Extensión hasta el beat *2000 con más variación y combinaciones
+				new Beat(startTime + gap * 125, "S"),
+				new Beat(startTime + gap * 125, "D"),
+				new Beat(startTime + gap * 130, "F"),
+				new Beat(startTime + gap * 135, "J"),
+				new Beat(startTime + gap * 135, "K"),
+				new Beat(startTime + gap * 140, "L"),
+				new Beat(startTime + gap * 145, "Space"),
+				new Beat(startTime + gap * 150, "S"),
+				new Beat(startTime + gap * 150, "J"),
+				new Beat(startTime + gap * 155, "D"),
+				new Beat(startTime + gap * 160, "F"),
+				new Beat(startTime + gap * 160, "Space"),
+				new Beat(startTime + gap * 165, "K"),
+				new Beat(startTime + gap * 170, "L"),
+				new Beat(startTime + gap * 170, "J"),
+				new Beat(startTime + gap * 175, "S"),
+				new Beat(startTime + gap * 180, "Space"),
+				new Beat(startTime + gap * 185, "D"),
+				new Beat(startTime + gap * 185, "F"),
+				new Beat(startTime + gap * 190, "J"),
+				new Beat(startTime + gap * 195, "K"),
+				new Beat(startTime + gap * 195, "L"),
+				new Beat(startTime + gap * 200, "S"),
+				new Beat(startTime + gap * 200, "Space"),
+				new Beat(startTime + gap * 205, "F"),
+				new Beat(startTime + gap * 210, "J"),
+				new Beat(startTime + gap * 210, "K"),
+				new Beat(startTime + gap * 215, "L"),
+				new Beat(startTime + gap * 220, "Space"),
+				new Beat(startTime + gap * 225, "S"),
+				new Beat(startTime + gap * 225, "D"),
+				new Beat(startTime + gap * 230, "F"),
+				new Beat(startTime + gap * 235, "J"),
+				new Beat(startTime + gap * 235, "K"),
+				new Beat(startTime + gap * 240, "L"),
+				new Beat(startTime + gap * 245, "Space"),
+				new Beat(startTime + gap * 250, "S"),
+				new Beat(startTime + gap * 250, "D"),
+				new Beat(startTime + gap * 255, "F"),
+				new Beat(startTime + gap * 260, "J"),
+				new Beat(startTime + gap * 260, "K"),
+				new Beat(startTime + gap * 265, "L"),
+				new Beat(startTime + gap * 270, "Space"),
+				new Beat(startTime + gap * 275, "S"),
+				new Beat(startTime + gap * 275, "D"),
+				new Beat(startTime + gap * 280, "F"),
+				new Beat(startTime + gap * 285, "J"),
+				new Beat(startTime + gap * 285, "K"),
+				new Beat(startTime + gap * 290, "L"),
+				new Beat(startTime + gap * 295, "Space"),
+				new Beat(startTime + gap * 300, "S"),
+				new Beat(startTime + gap * 305, "D"),
+				new Beat(startTime + gap * 310, "F"),
+				new Beat(startTime + gap * 310, "Space"),
+				new Beat(startTime + gap * 315, "J"),
+				new Beat(startTime + gap * 320, "K"),
+				new Beat(startTime + gap * 320, "L"),
+				new Beat(startTime + gap * 325, "Space"),
+				new Beat(startTime + gap * 330, "S"),
+				new Beat(startTime + gap * 335, "D"),
+				new Beat(startTime + gap * 340, "F"),
+				new Beat(startTime + gap * 345, "J"),
+				new Beat(startTime + gap * 345, "K"),
+				new Beat(startTime + gap * 350, "L"),
+				new Beat(startTime + gap * 355, "Space"),
+				new Beat(startTime + gap * 355, "S"),
+				new Beat(startTime + gap * 360, "D"),
+				new Beat(startTime + gap * 365, "F"),
+				new Beat(startTime + gap * 370, "J"),
+				new Beat(startTime + gap * 370, "K"),
+				new Beat(startTime + gap * 375, "L"),
+				new Beat(startTime + gap * 380, "Space"),
+				new Beat(startTime + gap * 385, "S"),
+				new Beat(startTime + gap * 390, "D"),
+				new Beat(startTime + gap * 395, "F"),
+				new Beat(startTime + gap * 400, "J"),
+				new Beat(startTime + gap * 400, "K"),
+				new Beat(startTime + gap * 405, "L"),
+				new Beat(startTime + gap * 410, "Space"),
+				new Beat(startTime + gap * 415, "S"),
+				new Beat(startTime + gap * 420, "D"),
+				new Beat(startTime + gap * 425, "F"),
+				new Beat(startTime + gap * 430, "J"),
+				new Beat(startTime + gap * 430, "K"),
+				new Beat(startTime + gap * 435, "L"),
+				new Beat(startTime + gap * 440, "Space")
+
+			};
+
+		}
 		int i = 0;
 		gameMusic.start();
 

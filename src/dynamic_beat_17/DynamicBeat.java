@@ -127,6 +127,9 @@ public class DynamicBeat extends JFrame {
 		trackList.add(new Track("We Are One Title Image.png", "We Are One Start Image.png", "We Are One Game Image.png",
 				"We Are One-Vexento Selected.mp3", "We Are One-Vexento.mp3", "We Are One-Vexento"));
 		
+		trackList.add(new Track("s3rl_title.png", "the few and the many.jpg", "the few and the many v2.jpg", "The Few & The Many cut.mp3", 
+				"The Few & The Many - S3RL.mp3", "The Few & The Many"));
+
 		setUndecorated(true); // when first executed, menubar doesn't show
 		setTitle("Dynamic Beat"); // the name of our game becomes "Dynamic Beat"
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
