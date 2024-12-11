@@ -1,3 +1,7 @@
 {
-    "java.debug.settings.onBuildFailureProceed": true
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\Ronald\\Downloads\\proyectos_ADYX COMPANY\\sqlite-jdbc-3.47.1.0.jar"
+    ]
 }

@@ -1,5 +1,9 @@
 package dynamic_beat_17;
 
+import dynamic_beat_17.Model.*;
+import dynamic_beat_17.View.*;
+import dynamic_beat_17.Controller.*;
+
 public class Main {
 	//Public static--sharable variable throughout the project
 	//final--value does not change once initialized
@@ -17,4 +21,5 @@ public class Main {
 	}
 
 }
-
+//https://github.com/JiwooL0920/DynamicBeat
+//https://blog.naver.com/ndb796/220997028385
