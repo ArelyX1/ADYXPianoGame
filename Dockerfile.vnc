@@ -1,0 +1,40 @@
+# Multi-stage build: compile then run with Xvfb + x11vnc + noVNC
+FROM eclipse-temurin:17-jdk AS build
+WORKDIR /app
+
+# Copy sources and libs
+COPY src /app/src
+COPY lib /app/lib
+
+RUN mkdir out \
+    && javac -d out $(/bin/sh -c 'find src -name "*.java"') \
+    && printf "Main-Class: dynamic_beat_17.Main\n" > manifest.txt \
+    && jar cfm app.jar manifest.txt -C out . \
+    && if [ -d lib ] ; then for dep in lib/*.jar; do TMPDIR=$(mktemp -d) && (cd "$TMPDIR" && jar xf "/app/$dep") && jar uf app.jar -C "$TMPDIR" . && rm -rf "$TMPDIR"; done; fi \
+    && jar uf app.jar -C src images -C src music || true \
+    && mv app.jar /app/dist.jar
+
+FROM ubuntu:22.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install runtime + VNC components
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       openjdk-17-jre-headless x11vnc xvfb fluxbox git wget python3-pip \
+    && pip3 install --no-cache-dir websockify \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY --from=build /app/dist.jar /app/dist.jar
+
+# Install noVNC and websockify (cloned to /opt)
+RUN git clone https://github.com/novnc/noVNC.git /opt/noVNC \
+    && git clone https://github.com/novnc/websockify /opt/websockify
+
+# Add startup script
+COPY start_vnc.sh /app/start_vnc.sh
+RUN chmod +x /app/start_vnc.sh
+
+EXPOSE 5900 6080
+
+ENTRYPOINT ["/app/start_vnc.sh"]

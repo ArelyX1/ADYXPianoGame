@@ -1,8 +1,7 @@
 package dynamic_beat_17.View;
 
 import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 
 import dynamic_beat_17.Main;
 import javazoom.jl.player.Player;
@@ -11,20 +10,22 @@ import javazoom.jl.player.Player;
 
 //Thread is a small program within a program
 public class Music extends Thread {
-	private Player player; 
+	private Player player;
 	private boolean isLoop; //isLoop tells whether the music plays only once or is keep playing 
-	private File file;
-	private FileInputStream fls;
 	private BufferedInputStream bis;
+	private String resourceName;
 	
 	//Constructor
 	public Music(String name, boolean isLoop) {
 		try {
-			this.isLoop = isLoop; 
-			file = new File(Main.class.getResource("../music/" + name).toURI()); //gets the file's location
-			fls = new FileInputStream(file);
-			bis = new BufferedInputStream(fls); //puts the file into a buffer (so that it's readable)
-			player = new Player(bis); //file goes into player
+			this.isLoop = isLoop;
+			this.resourceName = name;
+			InputStream is = Main.class.getResourceAsStream("../music/" + name);
+			if (is == null) {
+				throw new RuntimeException("Resource not found: " + name);
+			}
+			bis = new BufferedInputStream(is); //puts the file into a buffer (so that it's readable)
+			player = new Player(bis); //stream goes into player
 		}
 		catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -54,9 +55,15 @@ public class Music extends Thread {
 		try {
 			do {
 				player.play();
-				fls = new FileInputStream(file);
-				bis = new BufferedInputStream(fls); 
-				player = new Player(bis); 	
+				if (!isLoop) break;
+				// Re-open a fresh stream for the next loop iteration
+				InputStream is = Main.class.getResourceAsStream("../music/" + resourceName);
+				if (is == null) {
+					System.out.println("Cannot reopen resource for looping: " + resourceName);
+					break;
+				}
+				bis = new BufferedInputStream(is);
+				player = new Player(bis);
 			} while (isLoop); //if isLoop == true, the music plays infinitely 
 			
 		}

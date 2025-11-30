@@ -1,0 +1,98 @@
+name: Build artifacts (JAR, Docker image, Windows installer)
+
+on:
+  workflow_dispatch: {}
+
+jobs:
+  build-jar:
+    runs-on: ubuntu-latest
+    outputs:
+      jar: ${{ steps.upload.outputs.artifact-path }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Make build script executable
+        run: chmod +x ./build.sh || true
+
+      - name: Build dist.jar
+        run: |
+          ./build.sh
+
+      - name: Upload dist.jar
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-jar
+          path: dist.jar
+
+  build-docker:
+    needs: build-jar
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download dist.jar
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-jar
+
+      - name: Create simple Dockerfile for app
+        run: |
+          cat > Dockerfile.app <<'EOF'
+          FROM eclipse-temurin:17-jre
+          WORKDIR /app
+          COPY dist.jar /app/dist.jar
+          ENTRYPOINT ["java","-jar","/app/dist.jar"]
+          EOF
+
+      - name: Build Docker image
+        run: |
+          docker build -f Dockerfile.app -t adyxpianogame:latest .
+
+      - name: Save Docker image to tar
+        run: |
+          docker save adyxpianogame:latest -o image.tar
+
+      - name: Upload Docker image tar
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image-tar
+          path: image.tar
+
+  build-windows-installer:
+    needs: build-jar
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Download dist.jar
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-jar
+
+      - name: Create installer with jpackage
+        shell: pwsh
+        run: |
+          mkdir installer
+          jpackage --input . --name ADYXPianoGame --main-jar dist.jar --main-class dynamic_beat_17.Main --type exe --dest installer --app-version 1.0 || echo "jpackage failed"
+
+      - name: Upload installer (if created)
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-installer
+          path: installer
