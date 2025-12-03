@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import dynamic_beat_17.Main;
 import dynamic_beat_17.Controller.KeyListener;
@@ -27,26 +28,14 @@ import dynamic_beat_17.Model.Track;
 
 public class DynamicBeat extends JFrame {
 
-	/*
-	 * Double Buffering Technique -in Java, if you show an image on the screen, you
-	 * might have buffering problems -to avoid this, use the double buffering
-	 * technique -In computer science, multiple buffering is the use of more than
-	 * one buffer to hold a block of data, so that a "reader" will see a complete
-	 * (though perhaps old) version of the data, rather than a partially updated
-	 * version of the data being created by a "writer". It also is used to avoid the
-	 * need to use dual-ported RAM (DPRAM) when the readers and writers are
-	 * different devices.
-	 */
-
-	// Instances needed for double buffering technique
-	private Image screenImage;
-	private Graphics screenGraphic;
+	// Background panel for custom painting
+	private BackgroundPanel backgroundPanel;
 
 	// retrieve background.jpg and put into background variable
 	// Having Main.class as a reference point get the resource from file path; reset
 	// variable background to that file																											
-	private Image background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage(); 																									
-	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("../images/menuBar.png"))); 
+	private Image background = new ImageIcon(Main.class.getResource("/images/introBackground.jpg")).getImage(); 																									
+	private JLabel menuBar = new JLabel(new ImageIcon(Main.class.getResource("/images/menuBar.png"))); 
 	
 
 	
@@ -141,10 +130,14 @@ public class DynamicBeat extends JFrame {
 		setResizable(false); // user cannot redefine the screen size
 		setLocationRelativeTo(null); // when you run the project, the screen will appear right on the centre of the screen
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // need to declare this; otherwise the program continues to run in computer even after we close screen
-		setVisible(true); // make the screen visible
-		setBackground(new Color(0, 0, 0, 0)); // paintcomponent changes to white
-		setLayout(null); // button and layout gets located right on spot we declared
-
+		
+		// Create and add background panel
+		backgroundPanel = new BackgroundPanel();
+		backgroundPanel.setBounds(0, 0, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+		backgroundPanel.setLayout(null);
+		setContentPane(backgroundPanel);
+		
+		setFocusable(true); // Enable focus for keyboard input
 		addKeyListener(new KeyListener()); //from KeyListener class
 		
 		// Add intro music
@@ -185,7 +178,7 @@ public class DynamicBeat extends JFrame {
 				System.exit(0); //exit the game
 			}
 		});
-		add(exitButton);
+		backgroundPanel.add(exitButton);
 		
 		//Start Button
 		startButton.setBounds(40, 200, 400, 100); 
@@ -213,7 +206,7 @@ public class DynamicBeat extends JFrame {
 				enterMain();
 			}
 		});
-		add(startButton);
+		backgroundPanel.add(startButton);
 		
 		//Quit Button
 		quitButton.setBounds(40, 330, 400, 100); 
@@ -246,7 +239,7 @@ public class DynamicBeat extends JFrame {
 				System.exit(0); //exit the game
 			}
 		});
-		add(quitButton);
+		backgroundPanel.add(quitButton);
 		
 		//Left Button
 		leftButton.setVisible(false); //make it so that it's not visible in the beginning
@@ -276,7 +269,7 @@ public class DynamicBeat extends JFrame {
 				
 			}
 		});
-		add(leftButton);
+		backgroundPanel.add(leftButton);
 		
 		//Right Button
 		rightButton.setVisible(false);
@@ -306,7 +299,7 @@ public class DynamicBeat extends JFrame {
 				
 			}
 		});
-		add(rightButton);
+		backgroundPanel.add(rightButton);
 		
 		//Easy Button
 		easyButton.setVisible(false);
@@ -338,7 +331,7 @@ public class DynamicBeat extends JFrame {
 				
 			}
 		});
-		add(easyButton);
+		backgroundPanel.add(easyButton);
 		
 		//Hard Button
 		hardButton.setVisible(false);
@@ -369,7 +362,7 @@ public class DynamicBeat extends JFrame {
 				
 			}
 		});
-		add(hardButton);
+		backgroundPanel.add(hardButton);
 		
 		//Back Button
 		backButton.setVisible(false);
@@ -400,7 +393,7 @@ public class DynamicBeat extends JFrame {
 
 			}
 		});
-		add(backButton);
+		backgroundPanel.add(backButton);
 		
 		//Menubar
 		menuBar.setBounds(0, 0, 1280, 30); // declares position and size of menubar
@@ -420,53 +413,26 @@ public class DynamicBeat extends JFrame {
 				setLocation(x-mouseX, y-mouseY);
 			}
 		});
-		add(menuBar); // adds menubar to jframe
+		backgroundPanel.add(menuBar); // adds menubar to jframe
+
+		// Start repaint thread
+		new Thread(() -> {
+			while(true) {
+				backgroundPanel.repaint();
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+		
+		setVisible(true); // make the window visible - MUST BE LAST
 
 		
 
 
 
-	}
-
-	// Methods
-	// 1) Paint method
-	// Extend JFrame class to create your own frame class so that you can override
-	// the paint() method.
-	// The paint() method provides you a Graphics object, which will give you
-	// utility methods to draw various types of graphics.
-	// The paint() method is inherited by JFrame class from the Component class. It
-	// will be called whenever this component should be painted.
-	public void paint(Graphics g) {
-		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT); // create image by the screen size
-		screenGraphic = screenImage.getGraphics();
-		screenDraw((Graphics2D) screenGraphic); // Graphics2D is needed to printString nicely on the screen (otherwise it cracks)
-		g.drawImage(screenImage, 0, 0, null); // draw screenImage at point (0,0)
-	}
-
-	// 2) screenDraw method
-	// There are two ways to draw: drawimage and paintcomponents
-	public void screenDraw(Graphics2D g) {
-		g.drawImage(background, 0, 0, null); //generally, we use drawImage to draw moving images
-		if (isMainScreen) {
-			g.drawImage(selectedImage, 340, 100, null);
-			g.drawImage(titleImage, 340, 70, null);
-		}
-		if (isGameScreen) {		
-			game.screenDraw(g); //from Game class
-		}
-		paintComponents(g); // draws the images in the screen image (menubar stays constant; doesn't change. therefore use paintcomponent not drawimage), draws all the "add()" components
-		try {
-			Thread.sleep(5);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		this.repaint(); // calling the paint method again
-		// Way this works: the computer paints the screen at every moment until the
-		// program terminates
-		
-		//Note: images that are declared later is drawn on top of ones that were declared before them
 	}
 	
 	//function for Track
@@ -475,8 +441,21 @@ public class DynamicBeat extends JFrame {
 		if (selectedMusic != null) 
 			selectedMusic.close();
 		//change titleImage and selectedImage to the one that corresponds to the selected track
-		titleImage = new ImageIcon(Main.class.getResource("/images/" + trackList.get(nowSelected).getTitleImage())).getImage(); //get value of the TitleImage
-		selectedImage = new ImageIcon(Main.class.getResource("/images/" + trackList.get(nowSelected).getStartImage())).getImage(); //get value of the TitleImage
+		String titleImgPath = trackList.get(nowSelected).getTitleImage();
+		String startImgPath = trackList.get(nowSelected).getStartImage();
+		
+		if (titleImgPath != null && !titleImgPath.isEmpty()) {
+			titleImage = new ImageIcon(Main.class.getResource("/images/" + titleImgPath)).getImage();
+		} else {
+			titleImage = null;
+		}
+		
+		if (startImgPath != null && !startImgPath.isEmpty()) {
+			selectedImage = new ImageIcon(Main.class.getResource("/images/" + startImgPath)).getImage();
+		} else {
+			selectedImage = null;
+		}
+		
 		selectedMusic = new Music(trackList.get(nowSelected).getStartMusic(), true);
 		selectedMusic.start();
 	}
@@ -508,7 +487,7 @@ public class DynamicBeat extends JFrame {
 		rightButton.setVisible(false);
 		easyButton.setVisible(false);
 		hardButton.setVisible(false);
-		background = new ImageIcon(Main.class.getResource("../images/"+trackList.get(nowSelected).getGameImage())).getImage();
+		background = new ImageIcon(Main.class.getResource("/images/"+trackList.get(nowSelected).getGameImage())).getImage();
 		backButton.setVisible(true);
 		isGameScreen = true;
 		game = Game.getInstance
@@ -522,6 +501,7 @@ public class DynamicBeat extends JFrame {
 		 */
 		//game = new Game(trackList.get(nowSelected).getTitleName(),difficuly, trackList.get(nowSelected).getGameMusic());
 		game.start(); //run function is activated; note drops
+		requestFocusInWindow(); // Request focus when game starts
 		setFocusable(true); //for keyboard focus
 	}
 	
@@ -532,18 +512,19 @@ public class DynamicBeat extends JFrame {
 		rightButton.setVisible(true);
 		easyButton.setVisible(true);
 		hardButton.setVisible(true);
-		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
+		background = new ImageIcon(Main.class.getResource("/images/mainBackground.jpg")).getImage();
 		backButton.setVisible(false);
 		selectTrack(nowSelected);
 		isGameScreen = false;
 		game.close();
+		Game.resetInstance(); // Reset the singleton instance
 	}
 	
 	//Game Start Event
 	public void enterMain() {
 		startButton.setVisible(false);
 		quitButton.setVisible(false);
-		background = new ImageIcon(Main.class.getResource("../images/mainBackground.jpg")).getImage();
+		background = new ImageIcon(Main.class.getResource("/images/mainBackground.jpg")).getImage();
 		isMainScreen = true;
 		leftButton.setVisible(true);
 		rightButton.setVisible(true);
@@ -553,5 +534,33 @@ public class DynamicBeat extends JFrame {
 		selectTrack(0);
 	}
 	
+	// Inner class for background panel with custom painting
+	class BackgroundPanel extends JPanel {
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			Graphics2D g2d = (Graphics2D) g;
+			
+			// Draw background
+			if (background != null) {
+				g2d.drawImage(background, 0, 0, null);
+			}
+			
+			// Draw main screen elements
+			if (isMainScreen) {
+				if (selectedImage != null) {
+					g2d.drawImage(selectedImage, 340, 100, null);
+				}
+				if (titleImage != null) {
+					g2d.drawImage(titleImage, 340, 70, null);
+				}
+			}
+			
+			// Draw game screen
+			if (isGameScreen && game != null) {
+				game.screenDraw(g2d);
+			}
+		}
+	}
 
 }

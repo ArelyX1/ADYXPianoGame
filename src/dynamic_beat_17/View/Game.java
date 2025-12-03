@@ -15,19 +15,19 @@ import dynamic_beat_17.Model.Beat;
 
 public class Game extends Thread {
 	//Images
-	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("../images/noteRouteLine.png")).getImage(); 																									
-	private Image judgementLineImage = new ImageIcon(Main.class.getResource("../images/judgementLine.png")).getImage(); 																									
+	private Image noteRouteLineImage = new ImageIcon(Main.class.getResource("/images/noteRouteLine.png")).getImage(); 																									
+	private Image judgementLineImage = new ImageIcon(Main.class.getResource("/images/judgementLine.png")).getImage(); 																									
 
-	private Image gameInfoImage = new ImageIcon(Main.class.getResource("../images/gameInfo.png")).getImage(); 	
+	private Image gameInfoImage = new ImageIcon(Main.class.getResource("/images/gameInfo.png")).getImage(); 	
 	
-	private Image noteRouteSImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 
-	private Image noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 																									
-	private Image noteRouteFImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 																									
-	private Image noteRouteSpace1Image = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 																									
-	private Image noteRouteSpace2Image = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 																									
-	private Image noteRouteJImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 																									
-	private Image noteRouteKImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 																									
-	private Image noteRouteLImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 
+	private Image noteRouteSImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 
+	private Image noteRouteDImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 																									
+	private Image noteRouteFImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 																									
+	private Image noteRouteSpace1Image = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 																									
+	private Image noteRouteSpace2Image = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 																									
+	private Image noteRouteJImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 																									
+	private Image noteRouteKImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 																									
+	private Image noteRouteLImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 
 	
 	private Image blueFlareImage;
 	private Image judgeImage;
@@ -95,7 +95,7 @@ public class Game extends Thread {
 		for (int i = 0; i < noteList.size(); i++) {
 			Note note = noteList.get(i);
 			if (note.getY() > 620) {
-				judgeImage = new ImageIcon(Main.class.getResource("../images/judgeMiss.png")).getImage();
+				judgeImage = new ImageIcon(Main.class.getResource("/images/judgeMiss.png")).getImage();
 				combo = 0;
 			}
 			if (!note.isProceeded()) {
@@ -146,67 +146,67 @@ public class Game extends Thread {
 	//S
 	public void pressS() {
 		judge("S");
-		noteRouteSImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage(); 
+		noteRouteSImage = new ImageIcon(Main.class.getResource("/images/noteRoutePressed.png")).getImage(); 
 		new Music("drumSmall1.mp3",false).start();
 	}
 	public void releaseS() {
-		noteRouteSImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 
+		noteRouteSImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 
 	}
 	//D
 	public void pressD() {
 		judge("D");
-		noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage(); 
+		noteRouteDImage = new ImageIcon(Main.class.getResource("/images/noteRoutePressed.png")).getImage(); 
 		new Music("drumSmall1.mp3",false).start();
 	}
 	public void releaseD() {
-		noteRouteDImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 
+		noteRouteDImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 
 	}
 	//F
 	public void pressF() {
 		judge("F");
-		noteRouteFImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage(); 
+		noteRouteFImage = new ImageIcon(Main.class.getResource("/images/noteRoutePressed.png")).getImage(); 
 		new Music("drumSmall1.mp3",false).start();
 	}
 	public void releaseF() {
-		noteRouteFImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 
+		noteRouteFImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 
 	}
 	//Space
 	public void pressSpace() {
 		judge("Space");
-		noteRouteSpace1Image = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage(); 
-		noteRouteSpace2Image = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage(); 
+		noteRouteSpace1Image = new ImageIcon(Main.class.getResource("/images/noteRoutePressed.png")).getImage(); 
+		noteRouteSpace2Image = new ImageIcon(Main.class.getResource("/images/noteRoutePressed.png")).getImage(); 
 		new Music("drumBig1.mp3",false).start();
 	}
 	public void releaseSpace() {
-		noteRouteSpace1Image = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 
-		noteRouteSpace2Image = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 
+		noteRouteSpace1Image = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 
+		noteRouteSpace2Image = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 
 	}
 	//J
 	public void pressJ() {
 		judge("J");
-		noteRouteJImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage(); 
+		noteRouteJImage = new ImageIcon(Main.class.getResource("/images/noteRoutePressed.png")).getImage(); 
 		new Music("drumSmall1.mp3",false).start();
 	}
 	public void releaseJ() {
-		noteRouteJImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 
+		noteRouteJImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 
 	}
 	//K
 	public void pressK() {
 		judge("K");
-		noteRouteKImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage(); 
+		noteRouteKImage = new ImageIcon(Main.class.getResource("/images/noteRoutePressed.png")).getImage(); 
 		new Music("drumSmall1.mp3",false).start();
 	}
 	public void releaseK() {
-		noteRouteKImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 
+		noteRouteKImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 
 	}
 	//L
 	public void pressL() {
 		judge("L");
-		noteRouteLImage = new ImageIcon(Main.class.getResource("../images/noteRoutePressed.png")).getImage(); 
+		noteRouteLImage = new ImageIcon(Main.class.getResource("/images/noteRoutePressed.png")).getImage(); 
 		new Music("drumSmall1.mp3",false).start();
 	}
 	public void releaseL() {
-		noteRouteLImage = new ImageIcon(Main.class.getResource("../images/noteRoute.png")).getImage(); 
+		noteRouteLImage = new ImageIcon(Main.class.getResource("/images/noteRoute.png")).getImage(); 
 	}
 	
 	@Override
@@ -949,30 +949,30 @@ public class Game extends Thread {
 
 	public void judgeEvent(String judge) {
 		if (!judge.equals("None")) {
-			blueFlareImage = new ImageIcon(Main.class.getResource("../images/blueFlare.png")).getImage();
+			blueFlareImage = new ImageIcon(Main.class.getResource("/images/blueFlare.png")).getImage();
 		}
 		if (judge.equals("Early")) {
-			judgeImage = new ImageIcon(Main.class.getResource("../images/judgeEarly.png")).getImage();
+			judgeImage = new ImageIcon(Main.class.getResource("/images/judgeEarly.png")).getImage();
 			score += 5;
 			combo = 0;
 		}
 		else if (judge.equals("Good")) {
-			judgeImage = new ImageIcon(Main.class.getResource("../images/judgeGood.png")).getImage();
+			judgeImage = new ImageIcon(Main.class.getResource("/images/judgeGood.png")).getImage();
 			score += 20;
 			combo += 1;
 		}
 		else if (judge.equals("Great")) {
-			judgeImage = new ImageIcon(Main.class.getResource("../images/judgeGreat.png")).getImage();
+			judgeImage = new ImageIcon(Main.class.getResource("/images/judgeGreat.png")).getImage();
 			score += 50;
 			combo += 1;
 		}
 		else if (judge.equals("Perfect")) {
-			judgeImage = new ImageIcon(Main.class.getResource("../images/judgePerfect.png")).getImage();
+			judgeImage = new ImageIcon(Main.class.getResource("/images/judgePerfect.png")).getImage();
 			score += 100;
 			combo += 1;
 		}
 		else if (judge.equals("Late")) {
-			judgeImage = new ImageIcon(Main.class.getResource("../images/judgeLate.png")).getImage();
+			judgeImage = new ImageIcon(Main.class.getResource("/images/judgeLate.png")).getImage();
 			score += 5;
 			combo = 0;
 		}

@@ -21,7 +21,7 @@ public class Music extends Thread {
 	public Music(String name, boolean isLoop) {
 		try {
 			this.isLoop = isLoop; 
-			file = new File(Main.class.getResource("../music/" + name).toURI()); //gets the file's location
+			file = new File(Main.class.getResource("/music/" + name).toURI()); //gets the file's location
 			fls = new FileInputStream(file);
 			bis = new BufferedInputStream(fls); //puts the file into a buffer (so that it's readable)
 			player = new Player(bis); //file goes into player

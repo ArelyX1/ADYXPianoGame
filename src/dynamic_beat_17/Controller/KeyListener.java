@@ -10,6 +10,7 @@ public class KeyListener extends KeyAdapter {
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+		System.out.println("Key pressed: " + KeyEvent.getKeyText(e.getKeyCode())); // DEBUG
 		if (DynamicBeat.game == null) { //if there's no game going on 
 			return; //no event; function ends
 		}
